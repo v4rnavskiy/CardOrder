@@ -41,15 +41,12 @@ public class CardOrderTest {
     @Test
     void shouldCardOrderTest() throws InterruptedException {
         driver.get("http://localhost:9999/");
-        List<WebElement> inputs = driver.findElements(By.tagName("input"));
-        inputs.get(0).sendKeys("Иванов Иван");
-        inputs.get(1).sendKeys("+79999999999");
-//            driver.findElement().sendKeys("Иванов Иван");
-//            driver.findElement().sendKeys("+79999999999");
-        driver.findElement(By.className("checkbox__text")).click();
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Сидоров-Петров");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79999999999");
+        driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.className("button__text")).click();
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.tagName("p")).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText().trim();
         assertEquals(expected,actual);
     }
 }
